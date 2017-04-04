@@ -1,0 +1,316 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/timoxley/columnify">columnify (v1.5.4)</a>
+</h1>
+<h4>Render data in text columns. Supports in-column text-wrap.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.columnify">module columnify</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">columnify.</span>utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.columnify.utils">module columnify.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.padCenter">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>padCenter
+            <span class="apidocSignatureSpan">(str, max, chr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.padLeft">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>padLeft
+            <span class="apidocSignatureSpan">(str, max, chr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.padRight">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>padRight
+            <span class="apidocSignatureSpan">(str, max, chr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.splitIntoLines">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>splitIntoLines
+            <span class="apidocSignatureSpan">(str, max)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.splitLongWords">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>splitLongWords
+            <span class="apidocSignatureSpan">(str, max, truncationChar)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.utils.truncateString">
+            function <span class="apidocSignatureSpan">columnify.utils.</span>truncateString
+            <span class="apidocSignatureSpan">(str, max)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.columnify" id="apidoc.module.columnify">module columnify</a></h1>
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.columnify.utils" id="apidoc.module.columnify.utils">module columnify.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.padCenter" id="apidoc.element.columnify.utils.padCenter">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>padCenter
+        <span class="apidocSignatureSpan">(str, max, chr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function padCenter(str, max, chr) {
+  str = str != null ? str : ''
+  str = String(str)
+  var length = max - wcwidth(str)
+  if (length &lt;= 0) return str
+  var lengthLeft = Math.floor(length/2)
+  var lengthRight = length - lengthLeft
+  return repeatString(chr || ' ', lengthLeft) + str + repeatString(chr || ' ', lengthRight)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.padLeft" id="apidoc.element.columnify.utils.padLeft">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>padLeft
+        <span class="apidocSignatureSpan">(str, max, chr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function padLeft(str, max, chr) {
+  str = str != null ? str : ''
+  str = String(str)
+  var length = max - wcwidth(str)
+  if (length &lt;= 0) return str
+  return repeatString(chr || ' ', length) + str
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.padRight" id="apidoc.element.columnify.utils.padRight">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>padRight
+        <span class="apidocSignatureSpan">(str, max, chr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function padRight(str, max, chr) {
+  str = str != null ? str : ''
+  str = String(str)
+  var length = max - wcwidth(str)
+  if (length &lt;= 0) return str
+  return str + repeatString(chr || ' ', length)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.splitIntoLines" id="apidoc.element.columnify.utils.splitIntoLines">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>splitIntoLines
+        <span class="apidocSignatureSpan">(str, max)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function splitIntoLines(str, max) {
+  function _splitIntoLines(str, max) {
+    return str.trim().split(' ').reduce(function(lines, word) {
+      var line = lines[lines.length - 1]
+      if (line &amp;&amp; wcwidth(line.join(' ')) + wcwidth(word) &lt; max) {
+        lines[lines.length - 1].push(word) // add to line
+      }
+      else lines.push([word]) // new line
+      return lines
+    }, []).map(function(l) {
+      return l.join(' ')
+    })
+  }
+  return str.split('\n').map(function(str) {
+    return _splitIntoLines(str, max)
+  }).reduce(function(lines, line) {
+    return lines.concat(line)
+  }, [])
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.splitLongWords" id="apidoc.element.columnify.utils.splitLongWords">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>splitLongWords
+        <span class="apidocSignatureSpan">(str, max, truncationChar)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function splitLongWords(str, max, truncationChar) {
+  str = str.trim()
+  var result = []
+  var words = str.split(' ')
+  var remainder = ''
+
+  var truncationWidth = wcwidth(truncationChar)
+
+  while (remainder || words.length) {
+    if (remainder) {
+      var word = remainder
+      remainder = ''
+    } else {
+      var word = words.shift()
+    }
+
+    if (wcwidth(word) &gt; max) {
+      // slice is based on length no wcwidth
+      var i = 0
+      var wwidth = 0
+      var limit = max - truncationWidth
+      while (i &lt; word.length) {
+        var w = wcwidth(word.charAt(i))
+        if (w + wwidth &gt; limit) {
+          break
+        }
+        wwidth += w
+        ++i
+      }
+
+      remainder = word.slice(i) // get remainder
+      // save remainder for next loop
+
+      word = word.slice(0, i) // grab truncated word
+      word += truncationChar // add trailing â€¦ or whatever
+    }
+    result.push(word)
+  }
+
+  return result.join(' ')
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.utils.truncateString" id="apidoc.element.columnify.utils.truncateString">
+        function <span class="apidocSignatureSpan">columnify.utils.</span>truncateString
+        <span class="apidocSignatureSpan">(str, max)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function truncateString(str, max) {
+
+  str = str != null ? str : ''
+  str = String(str)
+
+  if(max == Infinity) return str
+
+  var i = 0
+  var wwidth = 0
+  while (i &lt; str.length) {
+    var w = wcwidth(str.charAt(i))
+    if(w + wwidth &gt; max)
+      break
+    wwidth += w
+    ++i
+  }
+  return str.slice(0, i)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
