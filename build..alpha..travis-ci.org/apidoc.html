@@ -63,6 +63,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.columnify.columnify">
+            function <span class="apidocSignatureSpan"></span>columnify
+            <span class="apidocSignatureSpan">(items)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">columnify.</span>utils</span>
 
         </li>
@@ -131,6 +140,133 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.columnify" id="apidoc.module.columnify">module columnify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.columnify.columnify" id="apidoc.element.columnify.columnify">
+        function <span class="apidocSignatureSpan"></span>columnify
+        <span class="apidocSignatureSpan">(items)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">columnify = function (items) {
+  var options = arguments.length &#x3c;= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var columnConfigs = options.config || {};
+  delete options.config; // remove config so doesn&#x27;t appear on every column.
+
+  var maxLineWidth = options.maxLineWidth || Infinity;
+  if (maxLineWidth === &#x27;auto&#x27;) maxLineWidth = process.stdout.columns || Infinity;
+  delete options.maxLineWidth; // this is a line control option, don&#x27;t pass it to column
+
+  // Option defaults inheritance:
+  // options.config[columnName] =&#x3e; options =&#x3e; DEFAULTS
+  options = mixin({}, DEFAULTS, options);
+
+  options.config = options.config || Object.create(null);
+
+  options.spacing = options.spacing || &#x27;\n&#x27;; // probably useless
+  options.preserveNewLines = !!options.preserveNewLines;
+  options.showHeaders = !!options.showHeaders;
+  options.columns = options.columns || options.include; // alias include/columns, prefer columns if supplied
+  var columnNames = options.columns || []; // optional user-supplied columns to include
+
+  items = toArray(items, columnNames);
+
+  // if not suppled column names, automatically determine columns from data keys
+  if (!columnNames.length) {
+    items.forEach(function (item) {
+      for (var columnName in item) {
+        if (columnNames.indexOf(columnName) === -1) columnNames.push(columnName);
+      }
+    });
+  }
+
+  // initialize column defaults (each column inherits from options.config)
+  var columns = columnNames.reduce(function (columns, columnName) {
+    var column = Object.create(options);
+    columns[columnName] = mixin(column, columnConfigs[columnName]);
+    return columns;
+  }, Object.create(null));
+
+  // sanitize column settings
+  columnNames.forEach(function (columnName) {
+    var column = columns[columnName];
+    column.name = columnName;
+    column.maxWidth = Math.ceil(column.maxWidth);
+    column.minWidth = Math.ceil(column.minWidth);
+    column.truncate = !!column.truncate;
+    column.align = column.align || &#x27;left&#x27;;
+  });
+
+  // sanitize data
+  items = items.map(function (item) {
+    var result = Object.create(null);
+    columnNames.forEach(function (columnName) {
+      // null/undefined -&#x3e; &#x27;&#x27;
+      result[columnName] = item[columnName] != null ? item[columnName] : &#x27;&#x27;;
+      // toString everything
+      result[columnName] = &#x27;&#x27; + result[columnName];
+      if (columns[columnName].preserveNewLines) {
+        // merge non-newline whitespace chars
+        result[columnName] = result[columnName].replace(/[^\S\n]/gmi, &#x27; &#x27;);
+      } else {
+        // merge all whitespace chars
+        result[columnName] = result[columnName].replace(/\s/gmi, &#x27; &#x27;);
+      }
+    });
+    return result;
+  });
+
+  // transform data cells
+  columnNames.forEach(function (columnName) {
+    var column = columns[columnName];
+    items = items.map(function (item, index) {
+      var col = Object.create(column);
+      item[columnName] = column.dataTransform(item[columnName], col, index);
+
+      var changedKeys = Object.keys(col);
+      // disable default heading transform if we wrote to column.name
+      if (changedKeys.indexOf(&#x27;name&#x27;) !== -1) {
+        if (column.headingTransform !== DEFAULT_HEADING_TRANSFORM) return;
+        column.headingTransform = function (heading) {
+          return heading;
+        };
+      }
+      changedKeys.forEach(function (key) {
+        return column[key] = col[key];
+      });
+      return item;
+    });
+  });
+
+  // add headers
+  var headers = {};
+  if (options.showHeaders) {
+    columnNames.forEach(function (columnName) {
+      var column = columns[columnName];
+
+      if (!column.showHeaders) {
+        headers[columnName] = &#x27;&#x27;;
+        return;
+      }
+
+      headers[columnName] = column.headingTransform(column.name);
+    });
+    items.unshift(headers);
+  }
+  // get actual max-width between min &#x26; max
+  // based on length of data in columns
+  columnNames.forEach(function (columnName) {
+    var column = columns[columnName];
+    column.width = items.map(function (item) {
+      return item[columnName];
+    }).reduce(function (min, cur) {
+      // if already at maxWidth don&#x27;t bother testing
+      if (min &#x3e;= column.max ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
 
