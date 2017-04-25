@@ -1,6 +1,6 @@
 # npmdoc-columnify
 
-#### api documentation for  [columnify (v1.5.4)](https://github.com/timoxley/columnify)  [![npm package](https://img.shields.io/npm/v/npmdoc-columnify.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-columnify) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-columnify.svg)](https://travis-ci.org/npmdoc/node-npmdoc-columnify)
+#### basic api documentation for  [columnify (v1.5.4)](https://github.com/timoxley/columnify)  [![npm package](https://img.shields.io/npm/v/npmdoc-columnify.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-columnify) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-columnify.svg)](https://travis-ci.org/npmdoc/node-npmdoc-columnify)
 
 #### Render data in text columns. Supports in-column text-wrap.
 
@@ -82,7 +82,8 @@
         "pretest": "npm prune",
         "test": "make prepublish && tape test/*.js | tap-spec"
     },
-    "version": "1.5.4"
+    "version": "1.5.4",
+    "bin": {}
 }
 ```
 
